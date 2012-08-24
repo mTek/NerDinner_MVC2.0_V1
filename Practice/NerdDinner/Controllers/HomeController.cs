@@ -15,22 +15,29 @@ namespace NerdDinner.Controllers
             ViewData["Message"] = "Welcome to ASP.NET MVC!";
 
             NerdDinnerEntities entities = new NerdDinnerEntities();
-            var udinners = from dinner in entities.Dinners
-                             where dinner.EventDate > DateTime.Now
-                             orderby dinner.EventDate
-                             select dinner;
+            var udinners = entities.Dinners.Single(d => d.DinnerID == 1);
+                            //from dinner in entities.Dinners
+                            // where dinner.DinnerID = 1 //dinner.EventDate > DateTime.Now
+                            // orderby dinner.EventDate
+                            // select dinner;
+
             string strDinners = "";
-            foreach (Dinner dinner in udinners)
-            {
-                if (strDinners.Trim() == "")
-                {
-                    strDinners = dinner.Title;
-                }
-                else
-                {
-                    strDinners = strDinners + dinner.Title;
-                }
-            }
+            strDinners = udinners.Title + "     " + udinners.Description;
+            udinners.Description = "New Description";
+            entities.SaveChanges();
+            var updateddinner = entities.Dinners.Single(d => d.DinnerID == 1);
+            strDinners = strDinners + "<br>" + updateddinner.Title + "     " + updateddinner.Description;
+            //foreach (Dinner dinner in udinners)
+            //{
+            //    if (strDinners.Trim() == "")
+            //    {
+            //        strDinners = dinner.Title;
+            //    }
+            //    else
+            //    {
+            //        strDinners = strDinners + dinner.Title;
+            //    }
+            //}
             ViewData["Dinners"] = strDinners;
             return View();
         }

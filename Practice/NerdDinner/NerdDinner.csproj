@@ -75,6 +75,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\DinnerRepository.cs" />
     <Compile Include="Models\NerdDinner.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
