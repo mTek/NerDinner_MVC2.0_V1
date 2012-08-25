@@ -70,11 +70,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DinnerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Dinner.cs" />
     <Compile Include="Models\DinnerRepository.cs" />
     <Compile Include="Models\NerdDinner.Designer.cs">
       <AutoGen>True</AutoGen>

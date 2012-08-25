@@ -8,7 +8,6 @@ namespace NerdDinner.Models
     public class DinnerRepository
     {
         private NerdDinnerEntities entities = new NerdDinnerEntities();
-
         public IQueryable<Dinner> FindAllDinners()
         {
             return entities.Dinners;
@@ -19,8 +18,32 @@ namespace NerdDinner.Models
                    where dinner.EventDate > DateTime.Now
                    orderby dinner.EventDate
                    select dinner;
-            
-            //return entities.Dinners.Select(d => d.EventDate > DateTime.Now);
+        }
+        public Dinner GetDinner(int id)
+        {
+            return entities.Dinners.FirstOrDefault(d => d.DinnerID == id);
+        }
+        public void Add(Dinner dinner)
+        {
+            entities.Dinners.AddObject(dinner);
+        }
+        public void Delete(Dinner dinner)
+        {
+            List<int> rsvpIds = new List<int>();
+            foreach(var rsvp in dinner.RSVPs) 
+            {
+                rsvpIds.Add(rsvp.RsvpID);
+            }
+            foreach (int id in rsvpIds)
+            {
+                entities.RSVPs.DeleteObject(entities.RSVPs.First(r => r.RsvpID == id));
+            }
+                
+            entities.Dinners.DeleteObject(dinner);
+        }
+        public void Save()
+        {
+            entities.SaveChanges();
         }
     }
 }

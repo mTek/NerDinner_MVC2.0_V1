@@ -6,9 +6,14 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2><%: ViewData["Message"] %></h2>
-    <br>
-    <%: ViewData["Dinners"] %>
-    <br>
+    <br/>
+    <%=ViewData["Dinners"]%>
+    <br/><br/>
+    Up Coming Dinners:-
+    <br/>
+    
+    <%=ViewData["UpComingDinners"]%>
+    <br/>
     <p>
         To learn more about ASP.NET MVC visit <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
     </p>
