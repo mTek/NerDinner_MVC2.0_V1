@@ -22,7 +22,7 @@ namespace NerdDinner.Controllers
             Dinner newDinner = new Dinner();
             newDinner.Title = "Anoter Dinner at " + DateTime.Now.AddMinutes(2).ToString();
             newDinner.Description = "Description of Anoter Dinner";
-            newDinner.EventDate = DateTime.Now.AddMinutes(2);
+            newDinner.EventDate = DateTime.Now.AddMinutes(30);
             newDinner.HostedBy = "MK";
             newDinner.Address = "Blackburn";
             newDinner.ContactPhone = "123456789";
