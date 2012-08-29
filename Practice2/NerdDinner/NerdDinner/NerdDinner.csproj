@@ -6,7 +6,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{AB8C6D72-3DBE-451F-8F67-72BB18F38200}</ProjectGuid>
+    <ProjectGuid>{DD359763-4BA2-4121-88BA-308A1C622D16}</ProjectGuid>
     <ProjectTypeGuids>{F85E285D-A4E0-4152-9332-AB1D724D3325};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -76,7 +76,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\Dinner.cs" />
     <Compile Include="Models\DinnerRepository.cs" />
     <Compile Include="Models\NerdDinner.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -92,9 +91,7 @@
     </Content>
     <Content Include="Global.asax" />
     <Content Include="Views\Dinners\Details.aspx" />
-    <Content Include="Views\Dinners\Edit.aspx" />
     <Content Include="Views\Dinners\Index.aspx" />
-    <Content Include="Views\Dinners\NotFound.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -147,7 +144,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>4785</DevelopmentServerPort>
+          <DevelopmentServerPort>2029</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

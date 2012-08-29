@@ -12,8 +12,8 @@
     <% foreach (var dinner in Model) { %>
     
         <li>
-            <a href="/Dinners/Details/<%: dinner.DinnerID %>">
-            <%:dinner.Title %>
+            <%--<a href="/Dinners/Details/<%: dinner.DinnerID %>"><%:dinner.Title %>--%>
+            <%:Html.ActionLink(dinner.Title,"Details",new{id=dinner.DinnerID}) %>
             </a>
             on
             <%:dinner.EventDate.ToShortDateString() %>

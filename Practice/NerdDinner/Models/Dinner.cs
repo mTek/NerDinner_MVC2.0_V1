@@ -13,7 +13,7 @@ namespace NerdDinner.Models
     public class Dinner_Validation
     {
         [Required(ErrorMessage="Title is required")]
-        [StringLength(5,ErrorMessage="Title may not be longer than 50 characters.")]
+        [StringLength(50,ErrorMessage="Title may not be longer than 50 characters.")]
         public string Title { get; set; }
     }
 }

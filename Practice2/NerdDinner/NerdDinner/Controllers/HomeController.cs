@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using NerdDinner.Models;
-using System.Data.Entity;
 namespace NerdDinner.Controllers
 {
     [HandleError]
@@ -26,7 +25,7 @@ namespace NerdDinner.Controllers
             newDinner.Address = "Blackburn";
             newDinner.ContactPhone = "123456789";
             newDinner.Country = "UK";
-            
+
             newDinner.Latitude = 53.750353;
             newDinner.Longitude = -2.482524;
 
@@ -44,23 +43,23 @@ namespace NerdDinner.Controllers
 
 
             var udinners = dRP.FindAllDinners();
-            
+
             foreach (Dinner dinner in udinners)
             {
                 string strRSVP = "";
-                foreach (RSVP r in dinner.RSVPs) 
+                foreach (RSVP r in dinner.RSVPs)
                 {
-                    strRSVP = strRSVP + ((strRSVP.Trim()!="")?",":"") + r.AttendeeName;
+                    strRSVP = strRSVP + ((strRSVP.Trim() != "") ? "," : "") + r.AttendeeName;
                 }
                 strDinners = strDinners + ((strDinners.Trim() != "") ? "<br/>" : "") + dinner.Title + "(" + strRSVP + ")";
             }
             ViewData["Dinners"] = strDinners;
 
             var upComingDinners = dRP.FindUpcomingDinners();
-            
+
             foreach (Dinner din in upComingDinners)
             {
-                    strUpComingDinners = strUpComingDinners + ((strUpComingDinners.Trim() != "") ? "<br/>" : "") + din.Title;
+                strUpComingDinners = strUpComingDinners + ((strUpComingDinners.Trim() != "") ? "<br/>" : "") + din.Title;
             }
             strUpComingDinners += "</p>";
             ViewData["UpComingDinners"] = strUpComingDinners;
@@ -73,8 +72,6 @@ namespace NerdDinner.Controllers
 
             return View();
         }
-
-        
 
         public ActionResult About()
         {
