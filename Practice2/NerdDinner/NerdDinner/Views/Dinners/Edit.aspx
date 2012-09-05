@@ -9,7 +9,7 @@
     <h2>Edit Dinner</h2>
 
     <% using (Html.BeginForm()) {%>
-        <%: Html.ValidationSummary("Please check the errors.") %>
+        <%: Html.ValidationSummary(false ,"Please check the errors.") %>
         
         <fieldset>
             <legend>Fields</legend>
@@ -26,7 +26,7 @@
                 <%: Html.LabelFor(model => model.EventDate) %>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.EventDate, String.Format("{0:g}", Model.EventDate)) %>
+                <%: Html.TextBoxFor(model => model.EventDate)%>
                 <%: Html.ValidationMessageFor(model => model.EventDate, "*")%>
             </div>
             
@@ -34,8 +34,13 @@
                 <%: Html.LabelFor(model => model.Description) %>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.Description) %>
+                <%--<%: Html.TextBoxFor(model => model.Description, htmlAttributes: new { @class = "required", maxlength = "10" })%>
+                --%>
+                <%: Html.TextBox("Description","", htmlAttributes: new { @class = "required", maxlength = "10" })%>
+                
                 <%: Html.ValidationMessageFor(model => model.Description, "*")%>
+                 <%: Html.ValidationMessageFor(model => model.Description, "*")%>
+                
             </div>
             
             <%--<div class="editor-label">

@@ -27,7 +27,7 @@ namespace NerdDinner.Controllers
         }
 
         //
-        // GET: /Dinners/Details/2
+        // GET: /Dinners/Edit/2
 
         public ActionResult Edit(int id)
         {
@@ -35,7 +35,7 @@ namespace NerdDinner.Controllers
         }
 
         //
-        // POST: /Dinners/Details/2
+        // POST: /Dinners/Edit/2
         [HttpPost]
         public ActionResult Edit(int id, FormCollection form)
         {
@@ -47,18 +47,34 @@ namespace NerdDinner.Controllers
             }
             return View(dinner);
 
-            //bool result = TryUpdateModel(dinner);
-            //if (result)
-            //{
-            //    dinnerRepository.Save();
-            //    return View("Details", dinner);
-            //}
-            //else
-            //{
-            //    return View("Error");
-            //}
         }
 
+        //
+        // GET: /Dinner/Create/
+
+        public ActionResult Create()
+        {
+            Dinner dinner = new Dinner(){
+            EventDate = DateTime.Now.AddDays(7)
+            };
+            return View(dinner); 
+        }
+
+        //
+        // POST: /Dinner/Create/
+        [HttpPost]
+        public ActionResult Create(FormCollection form)
+        {
+            Dinner dinner = new Dinner();
+            if (TryUpdateModel(dinner))
+            {
+                dinner.HostedBy = "Someone";
+                dinnerRepository.Add(dinner);
+                dinnerRepository.Save();
+                return RedirectToAction("Details", new { id=dinner.DinnerID });
+            }
+            return View(dinner);
+        }
 
     }
 }

@@ -91,6 +91,7 @@
       <DependentUpon>NerdDinner.mdf</DependentUpon>
     </Content>
     <Content Include="Global.asax" />
+    <Content Include="Views\Dinners\Create.aspx" />
     <Content Include="Views\Dinners\Details.aspx" />
     <Content Include="Views\Dinners\Edit.aspx" />
     <Content Include="Views\Dinners\Index.aspx" />
@@ -146,7 +147,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>2029</DevelopmentServerPort>
+          <DevelopmentServerPort>1967</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
