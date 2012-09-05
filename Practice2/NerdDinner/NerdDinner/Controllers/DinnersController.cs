@@ -62,17 +62,43 @@ namespace NerdDinner.Controllers
 
         //
         // POST: /Dinner/Create/
+        //[HttpPost]
+        //public ActionResult Create(FormCollection form)
+        //{
+        //    Dinner dinner = new Dinner();
+        //    if (TryUpdateModel(dinner))
+        //    {
+        //        dinner.HostedBy = "Someone";
+        //        dinnerRepository.Add(dinner);
+        //        dinnerRepository.Save();
+        //        return RedirectToAction("Details", new { id=dinner.DinnerID });
+        //    }
+        //    return View(dinner);
+        //}
+
+        //
+        // POST: /Dinner/Create/
         [HttpPost]
-        public ActionResult Create(FormCollection form)
+        public ActionResult Create(Dinner dinner)
         {
-            Dinner dinner = new Dinner();
-            if (TryUpdateModel(dinner))
+            //Dinner dinner = new Dinner();
+            if (ModelState.IsValid)
             {
                 dinner.HostedBy = "Someone";
                 dinnerRepository.Add(dinner);
                 dinnerRepository.Save();
-                return RedirectToAction("Details", new { id=dinner.DinnerID });
+                return RedirectToAction("Details", new { id = dinner.DinnerID });
             }
+            return View(dinner);
+        }
+
+
+        //
+        // GET: /Dinner/Delete/2
+        public ActionResult Delete(int id)
+        {
+            Dinner dinner = dinnerRepository.GetDinner(id);
+            dinnerRepository.Delete(dinner);
             return View(dinner);
         }
 
