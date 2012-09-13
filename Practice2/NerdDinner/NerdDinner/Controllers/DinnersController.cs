@@ -15,7 +15,7 @@ namespace NerdDinner.Controllers
 
         public ActionResult Index()
         {
-            return View(dinnerRepository.FindUpcomingDinners());
+            return View(dinnerRepository.FindUpcomingDinners().ToList());
         }
 
         //
@@ -26,39 +26,117 @@ namespace NerdDinner.Controllers
             return View(dinnerRepository.GetDinner(id));
         }
 
+
+        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        //Actions using ViewModel Pattern Start
+        
         //
         // GET: /Dinners/Edit/2
-
         public ActionResult Edit(int id)
         {
-            return View(dinnerRepository.GetDinner(id));
+            DinnerFormViewModel dinnerView = new DinnerFormViewModel(dinnerRepository.GetDinner(id));
+            return View(dinnerView);
         }
-
         //
         // POST: /Dinners/Edit/2
         [HttpPost]
         public ActionResult Edit(int id, FormCollection form)
         {
             Dinner dinner = dinnerRepository.GetDinner(id);
-            if (TryUpdateModel(dinner))
-            {
-                dinnerRepository.Save();
-                return RedirectToAction("Details", new { id=dinner.DinnerID });
+            if(TryUpdateModel(dinner,"Dinner")) {
+            dinnerRepository.Save();
+            return RedirectToAction("Details", new { id=dinner.DinnerID });
             }
-            return View(dinner);
-
+            return View(new DinnerFormViewModel(dinner));
         }
+
+        //
+        // GET: /Dinners/Create/
+        public ActionResult Create()
+        {
+            Dinner dinner = new Dinner { EventDate = DateTime.Now.AddDays(7) };
+            return View(new DinnerFormViewModel(dinner));
+        }
+
+        //
+        //POST
+        public ActionResult Create(Dinner dinner)
+        {
+            if (ModelState.IsValid)
+            {
+                dinner.HostedBy = "Someone";
+                dinnerRepository.Add(dinner);
+                dinnerRepository.Save();
+                return RedirectToAction("Details", new { id = dinner.DinnerID });
+
+            }
+            return View(new DinnerFormViewModel(dinner));
+        }
+
+        //Actions using ViewModel Pattern End
+        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+
+
+        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        //Original Edit
+        //
+        // GET: /Dinners/Edit/2
+
+        
+        //public ActionResult Edit(int id)
+        //{
+        //    Dinner dinner = dinnerRepository.GetDinner(id);
+        //    string[] countries = new string[]{
+        //        "UK",
+        //        "USA",
+        //        "Pakistan"
+        //    };
+        //    ViewData["Countries"] = new SelectList(countries, dinner.Country); 
+        //    return View(dinner);
+        //}
+
+        //
+        // POST: /Dinners/Edit/2
+        //[HttpPost]
+        //public ActionResult Edit(int id, FormCollection form)
+        //{
+        //    Dinner dinner = dinnerRepository.GetDinner(id);
+
+        //    string[] allowedProperties = new[] { "Title", "Description", "ContactPhone", "Country", "EventDate", "Latitude", "Longitude" };
+
+            
+
+        //    if (TryUpdateModel(dinner, allowedProperties))
+        //    {
+        //        dinnerRepository.Save();
+        //        return RedirectToAction("Details", new { id=dinner.DinnerID });
+        //    }
+
+        //    string[] countries = new string[]{
+        //        "UK",
+        //        "USA",
+        //        "Pakistan"
+        //    };
+        //    ViewData["Countries"] = new SelectList(countries, dinner.Country); 
+
+        //    return View(dinner);
+
+        //}
+        
+
 
         //
         // GET: /Dinner/Create/
 
-        public ActionResult Create()
-        {
-            Dinner dinner = new Dinner(){
-            EventDate = DateTime.Now.AddDays(7)
-            };
-            return View(dinner); 
-        }
+        //public ActionResult Create()
+        //{
+        //    Dinner dinner = new Dinner(){
+        //    EventDate = DateTime.Now.AddDays(7)
+        //    };
+        //    return View(dinner); 
+        //}
 
         //
         // POST: /Dinner/Create/
@@ -78,19 +156,22 @@ namespace NerdDinner.Controllers
 
         //
         // POST: /Dinner/Create/
-        [HttpPost]
-        public ActionResult Create(Dinner dinner)
-        {
-            //Dinner dinner = new Dinner();
-            if (ModelState.IsValid)
-            {
-                dinner.HostedBy = "Someone";
-                dinnerRepository.Add(dinner);
-                dinnerRepository.Save();
-                return RedirectToAction("Details", new { id = dinner.DinnerID });
-            }
-            return View(dinner);
-        }
+        //[HttpPost]
+        //public ActionResult Create(Dinner dinner)
+        //{
+        //    //Dinner dinner = new Dinner();
+        //    if (ModelState.IsValid)
+        //    {
+        //        dinner.HostedBy = "Someone";
+        //        dinnerRepository.Add(dinner);
+        //        dinnerRepository.Save();
+        //        return RedirectToAction("Details", new { id = dinner.DinnerID });
+        //    }
+        //    return View(dinner);
+        //}
+
+        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
 
 
         //
@@ -98,8 +179,37 @@ namespace NerdDinner.Controllers
         public ActionResult Delete(int id)
         {
             Dinner dinner = dinnerRepository.GetDinner(id);
-            dinnerRepository.Delete(dinner);
-            return View(dinner);
+            if (dinner == null)
+            {
+                return View("Error");
+            }
+            else
+            {
+                return View(dinner);
+            }
+        }
+
+
+        //
+        // POST: /Dinner/Delete/2
+        [HttpPost]
+        public ActionResult Delete(int id, string confirmbutton)
+        {
+            Dinner dinner = dinnerRepository.GetDinner(id);
+            if (dinner == null)
+            { 
+                return View("Error");
+            }
+            if (confirmbutton.ToUpper() == "DELETE")
+            {
+                dinnerRepository.Delete(dinner);
+                dinnerRepository.Save();
+                return View("Deleted");
+            }
+            else
+            {
+                return View(dinner);
+            }
         }
 
     }

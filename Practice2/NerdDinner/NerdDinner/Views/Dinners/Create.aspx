@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<NerdDinner.Models.Dinner>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<NerdDinner.Models.DinnerFormViewModel>" %>
 
 <asp:Content ID="Title" ContentPlaceHolderID="TitleContent" runat="server">
 	Create
@@ -6,66 +6,41 @@
 
 <asp:Content ID="Main" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>Host a Dinner</h2>
+    <h2>Create</h2>
 
     <% using (Html.BeginForm()) {%>
-        <%: Html.ValidationSummary("Please correct the errors.") %>
+        <%: Html.ValidationSummary(true) %>
 
         <fieldset>
-            <p> 
-                <%: Html.LabelFor(model => model.Title) %>
-                <%: Html.TextBoxFor(model => model.Title) %>
-                <%: Html.ValidationMessageFor(model => model.Title) %>
-            </p>
+            <legend>Fields</legend>
             <p>
-                <%: Html.LabelFor(model => model.EventDate) %>
-                <%: Html.TextBoxFor(model => model.EventDate) %>
-                <%: Html.ValidationMessageFor(model => model.EventDate) %>
-            </p>
-            <p>
-                <%: Html.LabelFor(model => model.Description) %>
-                <%: Html.TextBoxFor(model => model.Description) %>
-                <%: Html.ValidationMessageFor(model => model.Description) %>
-            </p>
-            
-            <%--<div class="editor-label">
-                <%: Html.LabelFor(model => model.HostedBy) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.HostedBy) %>
-                <%: Html.ValidationMessageFor(model => model.HostedBy) %>
-            </div>
-            --%>
-            <p>
-                <%: Html.LabelFor(model => model.ContactPhone) %>
-                <%: Html.TextBoxFor(model => model.ContactPhone) %>
-                <%: Html.ValidationMessageFor(model => model.ContactPhone) %>
-            </p>
-            
-            <p>
-                <%: Html.LabelFor(model => model.Address) %>
-                <%: Html.TextBoxFor(model => model.Address) %>
-                <%: Html.ValidationMessageFor(model => model.Address) %>
-            </p>
-            
-            <p>
-                <%: Html.LabelFor(model => model.Country) %>
-                <%: Html.TextBoxFor(model => model.Country) %>
-                <%: Html.ValidationMessageFor(model => model.Country) %>
-            </p>
-            
-            <p>
-                <%: Html.LabelFor(model => model.Latitude) %>
-                <%: Html.TextBoxFor(model => model.Latitude) %>
-                <%: Html.ValidationMessageFor(model => model.Latitude) %>
-            </p>
-            
-            <p>
-                <%: Html.LabelFor(model => model.Longitude) %>
-                <%: Html.TextBoxFor(model => model.Longitude) %>
-                <%: Html.ValidationMessageFor(model => model.Longitude) %>
-            </p>
-            
+            <label for="Title">Dinner Title:</label>
+            <%: Html.EditorFor(m => Model.Dinner.Title) %>
+        </p>
+        <p>
+            <label for="EventDate">Event Date:</label>
+            <%: Html.EditorFor(m => m.Dinner.EventDate) %>
+        </p>
+        <p>
+            <label for="Description">Description:</label>
+            <%: Html.TextAreaFor(m => Model.Dinner.Description, 6, 35, null) %>
+        </p>
+        <p>
+            <label for="Address">Address:</label>
+            <%: Html.EditorFor(m => Model.Dinner.Address)%>
+        </p>
+        <p>
+            <label for="Country">Country:</label>
+            <%: Html.DropDownList("Dinner.Country", Model.Countries) %>                
+        </p>
+        <p>
+            <label for="ContactPhone">Contact Info:</label>
+            <%: Html.EditorFor(m => Model.Dinner.ContactPhone)%>
+        </p>
+        <p>
+            <%: Html.HiddenFor(m => Model.Dinner.Latitude)%>
+            <%: Html.HiddenFor(m => Model.Dinner.Longitude)%>
+        </p>   
             <p>
                 <input type="submit" value="Create" />
             </p>

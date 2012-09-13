@@ -11,7 +11,7 @@
     <% foreach (var item in Model) { %>
     
         <li>
-            <%:Html.ActionLink(item.Title,"Details/" + item.DinnerID) %> @ <%:item.EventDate.ToString() %>
+            <%:Html.ActionLink(item.Title,"Details/" + item.DinnerID) %> @ <%:item.EventDate.ToString() %>&nbsp;&nbsp;&nbsp; <%:Html.ActionLink("Delete","Delete/" + item.DinnerID) %> 
         </li>
     
     <% } %>
